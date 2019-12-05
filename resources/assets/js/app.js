@@ -24,14 +24,13 @@ Vue.component('user', require('./components/User.vue'));
 Vue.component('ingreso', require('./components/Ingreso.vue'));
 Vue.component('venta', require('./components/Venta.vue'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));
-Vue.component('clienteventa', require('./components/ClienteVenta.vue'));
 Vue.component('consultaingreso', require('./components/ConsultaIngreso.vue'));
 Vue.component('consultaventa', require('./components/ConsultaVenta.vue'));
 
 
 const app = new Vue({
     el: '#app',
-    data :{
-        menu : 0
+    data: {
+        menu: 0
     }
 });

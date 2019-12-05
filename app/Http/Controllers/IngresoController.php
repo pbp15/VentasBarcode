@@ -90,7 +90,7 @@ class IngresoController extends Controller
        $numingreso = Ingreso::select('num_comprobante')->where('id',$id)->get();
 
        $pdf= \PDF::loadview('pdf.ingreso',['ingreso'=>$ingreso,'detalles'=>$detalles]);
-       return $pdf->download('ingreso-'.$numingreso[0]->num_comprobante.'.pdf');
+       return $pdf->stream('ingreso-'.$numingreso[0]->num_comprobante.'.pdf');
 
 
 }
@@ -114,7 +114,7 @@ public function pdfIngresoTotal(){
         ->where('i.estado', 'Registrado')->get();
 
         $pdf = \PDF::loadview('pdf.IngresoTotal',['ingresoTotal'=>$ingresoTotal,'cont' =>$cont ,'total' =>$total]);
-        return $pdf->download('IngresoTotal.pdf');
+        return $pdf->stream('IngresoTotal.pdf');
 
 }
 

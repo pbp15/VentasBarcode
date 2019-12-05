@@ -114,12 +114,10 @@
     <body>
         @foreach ($ingreso as $i)
         <header>
-            <div id="logo">            
-                <img src="img/logo2.png" alt="Legionwar" id="imagen">
-            </div>
+         
             <div id="datos">
                 <p id="encabezado">
-                    <b>LegionWar</b><br>Calle Real Nº 264 - 2do Nivel - El Tambo <br>Cel:954896699 - 958141453 <br>Telf:(064)241967
+                    <b>Inversiones "Roque"</b><br>Jr. Asunción Nº256 - Tarma <br>Cel:954896699 - 958141453 <br>Telf:(064)241967
                 </p>
             </div>            
             <div id="fact">
@@ -196,21 +194,21 @@
                             <th></th>
                             <th></th>
                             <th>SUBTOTAL</th>
-                            <td>$ {{round($i->total-($i->total*$i->impuesto),2)}}</td>
+                            <td>S/. {{round($i->total-($i->total*$i->impuesto),2)}}</td>
                         </tr>
                         <tr>
                             <th></th>
                             <th></th>
                             <th></th>
                             <th>Impuesto</th>
-                            <td>$ {{round($i->total*$i->impuesto,2)}}</td>
+                            <td>S/. {{round($i->total*$i->impuesto,2)}}</td>
                         </tr>
                         <tr>
                             <th></th>
                             <th></th>
                             <th></th>
                             <th>TOTAL</th>
-                            <td>$ {{$i->total}}</td>
+                            <td>S/. {{$i->total}}</td>
                         </tr>
                         @endforeach
                     </tfoot>
@@ -219,10 +217,6 @@
         </section>
         <br>
         <br>
-        <footer>
-            <div id="gracias">
-                <p><b>Gracias por su compra!</b></p>
-            </div>
-        </footer>
+  
     </body>
 </html>

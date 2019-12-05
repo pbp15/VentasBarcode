@@ -8,6 +8,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
+                             <h2 class="text-center"> Inversiones "Roque" </h2>  
                         <h2 class="text-center">  Proveedores</h2>     
                       
                     </div>

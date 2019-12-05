@@ -8,6 +8,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
+                             <h2 class="text-center"> Inversiones "Roque" </h2>  
                         <h2 class="text-center"> Productos</h2>                       
                         
                     </div>
@@ -43,6 +44,7 @@
                                     <th>Categoría</th>
                                     <th>Precio Venta</th>
                                     <th>Stock</th>
+                                    <th>Fecha Vencimiento</th>
                                     <th>Descripción</th>
                                     <th>Estado</th>
                                 </tr>
@@ -69,6 +71,7 @@
                                     <td v-text="articulo.nombre_categoria"></td>
                                     <td v-text="articulo.precio_venta"></td>
                                     <td v-text="articulo.stock"></td>
+                                     <td v-text="articulo.fecha_vencimiento"></td>
                                     <td v-text="articulo.descripcion"></td>
                                     <td>
                                         <div v-if="articulo.condicion">
@@ -147,6 +150,14 @@
                                         <input type="number" v-model="stock" class="form-control" placeholder="">                                        
                                     </div>
                                 </div>
+
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Fecha Vencimiento</label>
+                                    <div class="col-md-9">
+                                        <input type="date" v-model="fecha_vencimiento" class="form-control" >                                        
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
                                     <div class="col-md-9">
@@ -189,6 +200,7 @@
                 nombre : '',
                 precio_venta : 0,
                 stock : 0,
+                fecha_vencimiento : '',
                 descripcion : '',
                 arrayArticulo : [],
                 modal : 0,
@@ -290,6 +302,7 @@
                     'nombre': this.nombre,
                     'stock': this.stock,
                     'precio_venta': this.precio_venta,
+                    'fecha_vencimiento' :  this.fecha_vencimiento,
                     'descripcion': this.descripcion
                 }).then(function (response) {
                     me.cerrarModal();
@@ -311,6 +324,7 @@
                     'nombre': this.nombre,
                     'stock': this.stock,
                     'precio_venta': this.precio_venta,
+                     'fecha_vencimiento' :  this.fecha_vencimiento,
                     'descripcion': this.descripcion,
                     'id': this.articulo_id
                 }).then(function (response) {
@@ -406,7 +420,7 @@
                 if (!this.nombre) this.errorMostrarMsjArticulo.push("El nombre del artículo no puede estar vacío.");
                 if (!this.stock) this.errorMostrarMsjArticulo.push("El stock del artículo debe ser un número y no puede estar vacío.");
                 if (!this.precio_venta) this.errorMostrarMsjArticulo.push("El precio venta del artículo debe ser un número y no puede estar vacío.");
-
+               if (!this.fecha_vencimiento) this.errorMostrarMsjArticulo.push("La fecha de vencimiento  no puede estar vacío");
                 if (this.errorMostrarMsjArticulo.length) this.errorArticulo = 1;
 
                 return this.errorArticulo;
@@ -420,6 +434,7 @@
                 this.nombre = '';
                 this.precio_venta = 0;
                 this.stock = 0;
+                this.fecha_vencimiento = '';
                 this.descripcion = '';
 		        this.errorArticulo=0;
             },
@@ -438,6 +453,7 @@
                                 this.nombre= '';
                                 this.precio_venta=0;
                                 this.stock=0;
+                                this.fecha_vencimiento = ''
                                 this.descripcion = '';
                                 this.tipoAccion = 1;
                                 break;
@@ -453,6 +469,7 @@
                                 this.codigo=data['codigo'];
                                 this.nombre = data['nombre'];
                                 this.stock=data['stock'];
+                                 this.fecha_vencimiento =data['fecha_vencimiento'];
                                 this.precio_venta=data['precio_venta'];
                                 this.descripcion= data['descripcion'];
                                 break;

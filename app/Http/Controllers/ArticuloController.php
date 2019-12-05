@@ -16,12 +16,12 @@ class ArticuloController extends Controller
         
         if ($buscar==''){
             $articulos = Articulo::join('categorias','articulos.idcategoria','=','categorias.id')
-            ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre','categorias.nombre as nombre_categoria','articulos.precio_venta','articulos.stock','articulos.descripcion','articulos.condicion')
+            ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre','categorias.nombre as nombre_categoria','articulos.precio_venta','articulos.stock','articulos.fecha_vencimiento','articulos.descripcion','articulos.condicion')
             ->orderBy('articulos.id', 'desc')->paginate(15);
         }
         else{
             $articulos = Articulo::join('categorias','articulos.idcategoria','=','categorias.id')
-            ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre','categorias.nombre as nombre_categoria','articulos.precio_venta','articulos.stock','articulos.descripcion','articulos.condicion')
+            ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre','categorias.nombre as nombre_categoria','articulos.precio_venta','articulos.stock','articulos.fecha_vencimiento','articulos.descripcion','articulos.condicion')
             ->where('articulos.'.$criterio, 'like', '%'. $buscar . '%')
             ->orderBy('articulos.id', 'desc')->paginate(15);
         }
@@ -53,7 +53,7 @@ class ArticuloController extends Controller
             $articulos = Articulo::join('categorias','articulos.idcategoria','=','categorias.id')
             ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre',
             'categorias.nombre as nombre_categoria','articulos.precio_venta','articulos.stock',
-            'articulos.descripcion','articulos.condicion')
+            'articulos.descripcion','fecha_vencimiento','articulos.condicion')
              ->where('articulos.condicion', '=', 1)
             ->orderBy('articulos.id', 'desc')->paginate(10);
         }
@@ -61,7 +61,7 @@ class ArticuloController extends Controller
             $articulos = Articulo::join('categorias','articulos.idcategoria','=','categorias.id')
             ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre',
             'categorias.nombre as nombre_categoria','articulos.precio_venta','articulos.stock',
-            'articulos.descripcion','articulos.condicion')
+            'articulos.descripcion','fecha_vencimiento','articulos.condicion')
             ->where('articulos.'.$criterio, 'like', '%'. $buscar . '%')
             ->where('articulos.condicion', '=', 1)
             ->orderBy('articulos.id', 'desc')->paginate(10);
@@ -104,12 +104,12 @@ class ArticuloController extends Controller
 
         $articulos = Articulo::join('categorias','articulos.idcategoria','=','categorias.id')
         ->select('articulos.id','articulos.idcategoria','articulos.codigo','articulos.nombre','categorias.nombre as nombre_categoria',
-        'articulos.precio_venta','articulos.stock','articulos.descripcion','articulos.condicion')
+        'articulos.precio_venta','articulos.stock','articulos.descripcion','articulos.fecha_vencimiento')
         ->orderBy('articulos.nombre', 'desc')->get();
 
         $cont=Articulo::count();
         $pdf = \PDF::loadview('pdf.articulospdf',['articulos'=>$articulos,'cont' =>$cont]);
-        return $pdf->download('articulos.pdf');
+        return $pdf->stream('articulos.pdf');
 
 
     }
@@ -147,6 +147,7 @@ class ArticuloController extends Controller
         $articulo->precio_venta = $request->precio_venta;
         $articulo->stock = $request->stock;
         $articulo->descripcion = $request->descripcion;
+        $articulo->fecha_vencimiento = $request->fecha_vencimiento;
         $articulo->condicion = '1';
         $articulo->save();
     }
@@ -160,6 +161,7 @@ class ArticuloController extends Controller
         $articulo->precio_venta = $request->precio_venta;
         $articulo->stock = $request->stock;
         $articulo->descripcion = $request->descripcion;
+        $articulo->fecha_vencimiento = $request->fecha_vencimiento;
         $articulo->condicion = '1';
         $articulo->save();
     }

@@ -7,15 +7,16 @@
     <style>
         body {
             position: relative;
-            width: 50%;
+            width: 40%;
             height: 30px;
-            margin: 0 auto;
+            margin: 0 ;
             padding: 10px 10px;
-        font-family: ‘Bookman Old Style’, serif;
-        font-size: 12px;
+            font-family: ‘Bookman Old Style’, serif;
+            font-size: 14px;
         }
       
         #datos{
+       
         display:flex;
         justify-content: center;
         align-items:center;
@@ -23,6 +24,11 @@
 
         #encabezado{
         text-align: center;
+        font-size: 13px;
+        }
+
+        #encabezado b {
+        font-size: 15px;
         }
 
         #seccion_tabla{
@@ -32,11 +38,8 @@
             align-items:center;
             text-align: center;
         }
-
-
+   
       
-      
-    
         #facliente{
         width:60%;
         /* border-collapse: collapse; */
@@ -46,16 +49,17 @@
         }
         #cliente{
         text-align: center;
-        font-size: 10px;
+        font-size: 14px;
         }
 
         #fac,  #fa{
         color: black;
-        font-size: 12px;
+        font-size: 14px;
         text-align: center;
         }
         #fa-datos{
             text-align: center; 
+            font-size: 14px;
         }
 
         #facliente thead{
@@ -80,8 +84,13 @@
 
         #gracias{
         text-align: center; 
-
-
+        }
+        #total {
+        text-align: center;
+        }
+        #total1 {
+            border : 1px solid black;
+        text-align: center;
         }
     </style>
     <body>
@@ -90,12 +99,11 @@
           
             <div id="datos">
                 <p id="encabezado">
-                    <b>CENTRO COMERCIAL "P&Y"</b><br>CALLE GIRALDEZ Nº 487 <br>TARMA-TARMA-JUNIN 
-                    <br>TELEFONO : 987456123  <br> R.U.C : 102596786
+                    <b>Inversiones "Roque" S.R.L</b><br>CALLE GIRALDEZ Nº 487-TARMA<br>
+                     TELEFONO : 987456123  <br> R.U.C : 102596786
                      <br>TICKET DE VENTA   <br>
-                     <br> FECHA DE EMISION : {{$v->created_at}} 
-                     <br> Nº COMPROBANTE : CMT0000{{$v->id}} 
-                     <br> CLIENTE: Sr(a). {{$v->nombre}} 
+                     <br> FECHA DE EMISION : {{$v->fecha_hora }}
+                     <br> Nº COMPROBANTE : 0000{{$v->id}} 
                      <br> VENDEDOR : {{$v->usuario}} 
                 </p> 
             </div>  
@@ -131,19 +139,19 @@
                             <th></th>
                             <th></th>
                             <th>Subtotal</th>
-                            <td>s/. {{round($v->total-($v->total*$v->impuesto),2)}}</td>
+                            <td id="total" >s/. {{round($v->total-($v->total*$v->impuesto),2)}}</td>
                         </tr>
                         <tr>
                             <th></th>
                             <th></th>
                             <th>Impuesto</th>
-                            <td>s/. {{round($v->total*$v->impuesto,2)}}</td>
+                            <td id="total">s/. {{round($v->total*$v->impuesto,2)}}</td>
                         </tr>
                         <tr>
                             <th></th>
                             <th></th>
                             <th>Total</th>
-                            <td>s/. {{$v->total}}</td>
+                            <td id="total1" >s/. {{$v->total}}</td>
                         </tr>
                         @endforeach
                     </tfoot>
@@ -157,13 +165,7 @@
 
         <footer>
             <div id="gracias">
-                <p>TODO CAMBIO SERA DENTRO <br>
-                DEL DIA CON COMPROBANTE DE PAGO <br>
-                REPRESENTACION IMPRESA DE LA <br>
-                BOLETA DE VENTA ELECTRONICA <br>
-                ESTE DOCUMENTO PUEDE SER VALIDADO<br>
-                EN www.efacturando.com/emisiones<br>
-                </p>
+                <p>Gracias!!! <br>
 
             </div>
         </footer>

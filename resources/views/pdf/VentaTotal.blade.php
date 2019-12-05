@@ -82,14 +82,15 @@
 </head>
 <body>
     <div>
-        <h3>Lista de Ventas <span class="derecha">{{now()}}</span></h3>
+  
+        <h3>Lista de Ventas <span class="derecha">{{$vt->fecha_hora }}</span></h3>
+ 
     </div>
     <div>
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr>
                     <th>Usuario</th>
-                    <th>Cliente</th>
                     <th>Nº Comprobante</th>
                     <th>Fecha-Hora</th>
                     <th>Total</th>
@@ -99,8 +100,7 @@
                 @foreach ($ventaTotal as $vt)
                 <tr>
                     <td>{{$vt->usuario}}</td>
-                    <td>{{$vt->nombre}}</td>
-                    <td>{{$vt->num_comprobante}}</td>
+                    <td>{{$vt->id}}</td>
                     <td>{{$vt->fecha_hora }}</td>
                     <td>{{$vt->total}}</td>
                 </tr>

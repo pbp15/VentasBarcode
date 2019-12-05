@@ -8,8 +8,8 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="text-center"> Ventas</h2>    
-                       
+                        <h2 class="text-center"> Inversiones "Roque" </h2>    
+                        <h2 class="text-center"> Registro de Ventas</h2>   
                     </div>
                     <!-- Listado-->
                     <template v-if="listado==1">
@@ -19,7 +19,7 @@
                             <div class="col-md-5">
                                 <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
-                                      <option value="num_comprobante">NºComprobante</option>
+                                      <option value="id">NºComprobante</option>
                                       <option value="fecha_hora">Fecha-Hora</option>
                                     </select>
                                     <input type="text" v-model="buscar" @keyup.enter="listarVenta(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
@@ -28,11 +28,12 @@
                             </div>
 
                              <div class="col-md-3">
-                                <button type="button" @click="mostrarDetalle()" class="btn btn-warning">
-                                    Agregar Venta
+                                <button type="button" @click="mostrarDetalle()" class="btn btn-success">
+                                <i class="icon-plus"></i>Agregar
                                 </button>
                                 <button type="button" @click="VentaTotalPdf()" class="btn btn-info">
-                                            <i class="icon-doc"></i>Reporte Total
+                                <i class="icon-doc"></i>Reporte Total
+
                                 </button>
                             </div>    
                         </div>
@@ -42,7 +43,6 @@
                                     <tr>
                                         <th>Opciones</th>
                                         <th>Usuario</th>
-                                        <th>Cliente</th>
                                         <th>Número Comprobante</th>
                                         <th>Fecha Hora</th>
                                         <th>Total</th>
@@ -67,8 +67,7 @@
                                             </template>
                                         </td>
                                         <td v-text="venta.usuario"></td>
-                                        <td v-text="venta.nombre"></td>
-                                        <td v-text="venta.num_comprobante"></td>
+                                        <td v-text="venta.id"></td>
                                         <td> {{ venta.fecha_hora |format }} </td>
                                         <td v-text="venta.total"></td>
                                         <td v-text="venta.impuesto"></td>
@@ -96,52 +95,18 @@
                     <!-- Detalle-->
                     <template v-else-if="listado==0">
                     <div class="card-body">
-                        <div class="form-group row border">
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <label for="">Cliente(*)</label>
-                                    <v-select
-                                       @search="selectCliente"
-                                        label="nombre"
-                                        :options="arrayCliente"
-                                        placeholder="Buscar Clientes..."
-                                       @input="getDatosCliente"                                        
-                                    >
-
-                                    </v-select>
-                                </div>
-                            </div>
+                        <div class="form-group row border">                            
                             <div class="col-md-3">
-                                <label for="">Impuesto(*)</label>
-                                <input type="text" class="form-control" v-model="impuesto">
-                            </div>                           
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Número Comprobante(*)</label>
-                                    <input type="text" class="form-control" v-model="num_comprobante" placeholder="000xx"  >
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div v-show="errorVenta" class="form-group row div-error">
-                                    <div class="text-center text-error">
-                                        <div v-for="error in errorMostrarMsjVenta" :key="error" v-text="error">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row border">
-                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Artículo <span style="color:red;" v-show="idarticulo==0">(*Seleccione)</span></label>
                                     <div class="form-inline">
-                                        <input type="text" class="form-control" v-model="codigo" @keyup.enter="buscarArticulo()" placeholder="Ingrese artículo">
+                                        <input type="text" class="form-control" v-model="codigo" @keyup.enter="buscarArticulo()"  @click="agregarDetalle()" >
                                         <button @click="abrirModal()" class="btn btn-primary">...</button>
-                                        <input type="text" readonly class="form-control" v-model="articulo">
+                                        <input type="text" class="alert alert-danger" style="font-size:18px" readonly  v-model="articulo" >
                                     </div>                                    
                                 </div>
                             </div>
+                            
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Precio <span style="color:red;" v-show="precio==0">(*Ingrese)</span></label>
@@ -154,18 +119,23 @@
                                     <input type="number" value="0" class="form-control" v-model="cantidad">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <div class="form-group">
                                     <label>Descuento</label>
                                     <input type="number" value="0" class="form-control" v-model="descuento">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <div class="form-group">
                                     <button @click="agregarDetalle()" class="btn btn-success form-control btnagregar"><i class="icon-plus"></i></button>
                                 </div>
                             </div>
+                             <div class="col-md-3">
+                                <label for="">Impuesto(*)</label>
+                                <input type="text" class="form-control" v-model="impuesto">
+                            </div>
                         </div>
+
                         <div class="form-group row border">
                             <div class="table-responsive col-md-12">
                                 <table class="table table-bordered table-striped table-sm">
@@ -205,15 +175,15 @@
                                         </tr>
                                         <tr style="background-color: #CEECF5;">
                                             <td colspan="5" align="right"><strong>Total Parcial:</strong></td>
-                                            <td>$ {{totalParcial=(total-totalImpuesto).toFixed(2)}}</td>
+                                            <td>S/. {{totalParcial=(total-totalImpuesto).toFixed(2)}}</td>
                                         </tr>
                                         <tr style="background-color: #CEECF5;">
                                             <td colspan="5" align="right"><strong>Total Impuesto:</strong></td>
-                                            <td>$ {{totalImpuesto=((total*impuesto)/(1+impuesto)).toFixed(2)}}</td>
+                                            <td>S/. {{totalImpuesto=((total*impuesto)/(1+impuesto)).toFixed(2)}}</td>
                                         </tr>
                                         <tr style="background-color: #CEECF5;">
                                             <td colspan="5" align="right"><strong>Total Neto:</strong></td>
-                                            <td>$ {{total=(calcularTotal).toFixed(2)}}</td>
+                                            <td>S/. {{total=(calcularTotal).toFixed(2)}}</td>
                                         </tr>
                                     </tbody>
                                     <tbody v-else>
@@ -241,20 +211,14 @@
                         <div class="form-group row border">
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <label for="">Cliente</label>
-                                    <p v-text="cliente"></p>
+                                   <label>Número Comprobante</label>
+                                      <p v-text="venta_id"></p>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <label for="">Impuesto</label>
                                 <p v-text="impuesto"></p>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>Número Comprobante</label>
-                                    <p v-text="num_comprobante"></p>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                         <div class="form-group row border">
                             <div class="table-responsive col-md-12">
@@ -284,15 +248,15 @@
                                         </tr>
                                         <tr style="background-color: #CEECF5;">
                                             <td colspan="4" align="right"><strong>Total Parcial:</strong></td>
-                                            <td>$ {{totalParcial=(total-totalImpuesto).toFixed(2)}}</td>
+                                            <td>S/. {{totalParcial=(total-totalImpuesto).toFixed(2)}}</td>
                                         </tr>
                                         <tr style="background-color: #CEECF5;">
                                             <td colspan="4" align="right"><strong>Total Impuesto:</strong></td>
-                                            <td>$ {{totalImpuesto=((total*impuesto)).toFixed(2)}}</td>
+                                            <td>S/. {{totalImpuesto=((total*impuesto)).toFixed(2)}}</td>
                                         </tr>
                                         <tr style="background-color: #CEECF5;">
                                             <td colspan="4" align="right"><strong>Total Neto:</strong></td>
-                                            <td>$ {{total}}</td>
+                                            <td>S/. {{total}}</td>
                                         </tr>
                                     </tbody>
                                     <tbody v-else>
@@ -331,12 +295,12 @@
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <div class="input-group">
-                                        <select class="form-control col-md-3" v-model="criterioA">
+                                        <select class="form-control col-md-3"  v-model="criterioA">
                                         <option value="nombre">Nombre</option>
                                         <option value="descripcion">Descripción</option>
                                         <option value="codigo">Código</option>
                                         </select>
-                                        <input type="text" v-model="buscarA" @keyup.enter="listarArticulo(buscarA,criterioA)" class="form-control" placeholder="Texto a buscar">
+                                        <input  type="text" v-model="buscarA" @keyup.enter="listarArticulo(buscarA,criterioA)" class="form-control "  placeholder="Texto a buscar">
                                         <button type="submit" @click="listarArticulo(buscarA,criterioA)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                     </div>
                                 </div>
@@ -400,15 +364,11 @@
         data (){
             return {
                 venta_id: 0,
-                idcliente:0,
-                cliente:'',
-                num_comprobante : '' ,
                 impuesto: 0.18,
                 total:0.0,
                 totalImpuesto: 0.0,
                 totalParcial: 0.0,
                 arrayVenta : [],
-                arrayCliente: [],
                 arrayDetalle : [],
                 listado:1,
                 modal : 0,
@@ -425,16 +385,16 @@
                     'to' : 0,
                 },
                 offset : 3,
-                criterio : 'num_comprobante',
+                criterio : 'id',
                 buscar : '',
-                criterioA:'nombre',
+                criterioA:'codigo',
                 buscarA: '',
                 arrayArticulo: [],
                 idarticulo: 0,
                 codigo: '',
                 articulo: '',
                 precio: 0,
-                cantidad:0,
+                cantidad: 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ,
                 descuento: 0,
                 stock:0
             }
@@ -501,26 +461,29 @@
                 });
             },
 
-            selectCliente(search,loading){
-                        let me=this;
-                        loading(true)
+         buscarArticulo(){
+                    let me=this;
+                    var url= '/articulo/buscarArticuloVenta?filtro=' + me.codigo;
 
-                        var url= '/cliente/selectCliente?filtro='+search;
-                        axios.get(url).then(function (response) {
-                            let respuesta = response.data;
-                            q: search
-                            me.arrayCliente=respuesta.clientes;
-                            loading(false)
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                    },
-                    getDatosCliente(val1){
-                        let me = this;
-                        me.loading = true;
-                        me.idcliente = val1.id;
-                    },
+                    axios.get(url).then(function (response) {
+                        var respuesta= response.data;
+                        me.arrayArticulo = respuesta.articulos;
+
+                        if (me.arrayArticulo.length>0){
+                            me.articulo=me.arrayArticulo[0]['nombre'];
+                            me.idarticulo=me.arrayArticulo[0]['id'];
+                            me.precio=me.arrayArticulo[0]['precio_venta'];
+                            me.stock=me.arrayArticulo[0]['stock'];
+                        }
+                        else{
+                            me.articulo='No existe artículo';
+                            me.idarticulo=0;
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                },
 
 
             pdfVenta(id){
@@ -557,7 +520,7 @@
             },
             agregarDetalle(){
                 let me=this;
-                if(me.idarticulo==0 || me.cantidad==0 || me.precio==0){
+                if(me.idarticulo==0  || me.precio==0   ){
                 }
                 else{
                     if(me.encuentra(me.idarticulo)){
@@ -587,7 +550,7 @@
                             me.codigo="";
                             me.idarticulo=0;
                             me.articulo="";
-                            me.cantidad=0;
+                            me.cantidad=1;
                             me.precio=0;
                             me.descuento=0;
                             me.stock=0
@@ -617,6 +580,7 @@
                             descuento:0,
                             stock:data['stock']
                         }); 
+                     
                     }
             },
             listarArticulo (buscar,criterio){
@@ -630,6 +594,7 @@
                     console.log(error);
                 });
             },
+            
             registrarVenta(){
                 if (this.validarVenta()){
                     return;
@@ -638,17 +603,14 @@
                 let me = this;
 
                 axios.post('/venta/registrar',{
-                    'idcliente': this.idcliente,
-                    'num_comprobante' : this.num_comprobante,
                     'impuesto' : this.impuesto,
                     'total' : this.total,
                     'data': this.arrayDetalle
 
                 }).then(function (response) {
                     me.listado=1;
-                    me.listarVenta(1,'','num_comprobante');
-                    me.idcliente=0;
-                    me.num_comprobante='';
+                    me.listarVenta(1,'','id');               
+                  
                     me.impuesto=0.18;
                     me.total=0.0;
                     me.idarticulo=0;
@@ -664,6 +626,7 @@
                     console.log(error);
                 });
             },
+
             validarVenta(){
                 let me=this;
                 me.errorVenta=0;
@@ -677,9 +640,7 @@
                     }
                 });
 
-                if (me.idcliente==0) me.errorMostrarMsjVenta.push("Seleccione un Cliente");
-                if (!me.num_comprobante) me.errorMostrarMsjVenta.push("Ingrese el número de comprobante");
-                if (!me.impuesto) me.errorMostrarMsjVenta.push("Ingrese el impuesto de compra");
+              
                 if (me.arrayDetalle.length<=0) me.errorMostrarMsjVenta.push("Ingrese detalles");
 
                 if (me.errorMostrarMsjVenta.length) me.errorVenta = 1;
@@ -714,8 +675,7 @@
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
                     arrayVentaT = respuesta.venta;
-                    me.cliente = arrayVentaT[0]['nombre'];
-                    me.num_comprobante=arrayVentaT[0]['num_comprobante'];
+                    me.id=arrayVentaT[0]['id'];
                     me.impuesto=arrayVentaT[0]['impuesto'];
                     me.total=arrayVentaT[0]['total'];
                 })

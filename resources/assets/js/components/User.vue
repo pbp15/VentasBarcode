@@ -8,6 +8,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
+                         <h2 class="text-center"> Inversiones "Roque" </h2>  
                       <h2 class="text-center"> Usuarios</h2>              
                         
                     </div>
@@ -344,8 +345,6 @@
                 if (!this.usuario) this.errorMostrarMsjPersona.push("El nombre de usuario no puede estar vacío.");
                 if (!this.password) this.errorMostrarMsjPersona.push("La password del usuario no puede estar vacía.");
                 if (this.idrol==0) this.errorMostrarMsjPersona.push("Seleccione una Rol.");
-                if ((this.num_documento).lenght!=8) this.errorMostrarMsjPersona.push("Ingresar  8 digitos al DNI ");
-                if ((this.telefono).lenght!=9) this.errorMostrarMsjPersona.push("Ingresar  9 digitos al Telf ");
                 if (this.errorMostrarMsjPersona.length) this.errorPersona = 1;
 
                 return this.errorPersona;

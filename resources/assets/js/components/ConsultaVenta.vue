@@ -8,6 +8,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
+                        <h2 class="text-center"> Inversiones "Roque"</h2>  
                         <h2 class="text-center">Consulta Ventas</h2>    
                        
                     </div>
@@ -38,7 +39,6 @@
                                     <tr>
                                         <th>Opciones</th>
                                         <th>Usuario</th>
-                                        <th>Cliente</th>
                                         <th>Número Comprobante</th>
                                         <th>Fecha Hora</th>
                                         <th>Total</th>
@@ -58,8 +58,7 @@
                                         
                                         </td>
                                         <td v-text="venta.usuario"></td>
-                                        <td v-text="venta.nombre"></td>
-                                        <td v-text="venta.num_comprobante"></td>
+                                        <td v-text="venta.id"></td>
                                         <td> {{ venta.fecha_hora |format }} </td>
                                         <td v-text="venta.total"></td>
                                         <td v-text="venta.impuesto"></td>

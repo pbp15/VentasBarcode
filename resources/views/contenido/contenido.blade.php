@@ -32,7 +32,7 @@
             </template>
 
             <template v-if="menu==13">
-                <clienteventa></clienteventa>
+         
             </template>
 
             <template v-if="menu==7">
@@ -61,14 +61,14 @@
             @elseif (Auth::user()->idrol == 2)
 
             <template v-if="menu==0">
-                <dashboard></dashboard>
+            <venta></venta>
             </template>
             <template v-if="menu==5">
                 <venta></venta>
             </template>
 
             <template v-if="menu==13">
-                <clienteventa></clienteventa>
+         
             </template>
             <template v-if="menu==10">
             <consultaventa></consultaventa>
@@ -84,7 +84,7 @@
             @elseif (Auth::user()->idrol == 3)
 
             <template v-if="menu==0">
-                <dashboard></dashboard>
+            <ingreso></ingreso>
             </template>
             <template v-if="menu==1">
                 <categoria></categoria>

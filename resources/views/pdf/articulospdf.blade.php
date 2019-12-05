@@ -94,7 +94,7 @@
                     <th>Precio Venta</th>
                     <th>Stock</th>
                     <th>Descripción</th>
-                    <th>Estado</th>
+                    <th>Fecha de Vencimiento</th>
                 </tr>
             </thead>
             <tbody>
@@ -106,6 +106,7 @@
                     <td>{{$a->precio_venta}}</td>
                     <td>{{$a->stock}}</td>
                     <td>{{$a->descripcion}}</td>
+                    <td>{{$a->fecha_vencimiento}}</td>
                     <td>{{$a->condicion?'Activo':'Desactivado'}}</td>
                 </tr>
                 @endforeach                                

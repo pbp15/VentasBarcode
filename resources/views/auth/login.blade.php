@@ -36,9 +36,9 @@
    
                 <img src="img/user1.png"  width="40%" height ="30%" >
      
-                <h2 class=" ">Maranatha S.A </h2>
+                <h2 class=" ">Inversiones "Roque" </h2>
                 <hr>
-                <p>Calle Huanuco Nº 264 - Tarma </p>
+                <p> Calidad y Confianza</p>
                 
               
               </div>
